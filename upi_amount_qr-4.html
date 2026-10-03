@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>UPI Amount QR</title>
+<style>body{font-family:Arial,sans-serif;max-width:420px;margin:30px auto;padding:20px;text-align:center;background:#f7f7f7}main{background:#fff;padding:22px;border-radius:18px;box-shadow:0 2px 12px #ddd}input,button{width:100%;box-sizing:border-box;padding:14px;margin:8px 0;font-size:18px;border-radius:10px}input{border:1px solid #ccc}button{border:0;background:#111;color:#fff}#qr{margin:20px auto}small{color:#666}</style>
+</head><body><main>
+<h2>UPI Payment QR</h2><p><b>dheeraj.kumar12@ybl</b></p>
+<input id="amount" type="number" min="0.01" step="0.01" placeholder="Amount (₹)">
+<button onclick="makeQR()">Generate QR</button><div id="qr"></div>
+<button id="download" style="display:none" onclick="downloadQR()">Download QR</button>
+<small>QR scan करने पर राशि पहले से भरी होगी।</small>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+let box=document.getElementById('qr');
+function makeQR(){let a=parseFloat(document.getElementById('amount').value);if(!a||a<=0){alert('कृपया सही Amount डालें');return}let uri='upi://pay?pa='+encodeURIComponent('dheeraj.kumar12@ybl')+'&pn='+encodeURIComponent('Dheeraj Kumar')+'&am='+a.toFixed(2)+'&cu=INR';box.innerHTML='';new QRCode(box,{text:uri,width:260,height:260});document.getElementById('download').style.display='block'}
+function downloadQR(){let img=box.querySelector('img');if(!img)return;let a=document.createElement('a');a.href=img.src;a.download='upi-payment-qr.png';a.click()}
+</script></body></html>
